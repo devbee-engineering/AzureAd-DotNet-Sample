@@ -36,11 +36,11 @@ builder.Services.AddSwaggerGen(c =>
         {
             AuthorizationCode = new OpenApiOAuthFlow
             {
-                AuthorizationUrl = new Uri("https://login.microsoftonline.com/8882c7ab-1694-4d94-96b2-ce38155c264d/oauth2/v2.0/authorize"),
-                TokenUrl = new Uri("https://login.microsoftonline.com/8882c7ab-1694-4d94-96b2-ce38155c264d/oauth2/v2.0/token"),
+                AuthorizationUrl = new Uri("https://login.microsoftonline.com/<TENANT_ID>/oauth2/v2.0/authorize"),
+                TokenUrl = new Uri("https://login.microsoftonline.com/<TENANT_ID>/oauth2/v2.0/token"),
                 Scopes = new Dictionary<string, string>
                 {
-                    {  "api://23f6aed3-c511-467d-bc71-812b2cf97545/access_as_user", "read the api" }
+                    {  "<API_SCOPE>/access_as_user", "read the api" }
                 }
             }
         }
@@ -52,7 +52,7 @@ builder.Services.AddSwaggerGen(c =>
             {
                 Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "oauth2" }
             },
-            new[] { "api://23f6aed3-c511-467d-bc71-812b2cf97545/access_as_user" }
+            new[] { "<API_SCOPE>/access_as_user" }
         }
     });
 });
@@ -66,7 +66,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "swaggerAADdemo v1");
-        c.OAuthClientId("23f6aed3-c511-467d-bc71-812b2cf97545");
+        c.OAuthClientId("<CLIENT_ID>");
         c.OAuthUsePkce();
         c.OAuthScopeSeparator(" ");
     });
